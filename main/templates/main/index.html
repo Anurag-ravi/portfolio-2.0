@@ -1,0 +1,599 @@
+{% load static %}
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!--==================== BOXICONS ====================-->
+        <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+        
+        <!--==================== SWIPER CSS ====================-->
+        <link rel="stylesheet" href="{% static 'assets/css/swiper-bundle.min.css' %}">
+        
+        <!--==================== CSS ====================-->
+        <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
+
+        <style>
+            :root {
+                --header-height: 3rem;
+
+                /*========== Colors ==========*/
+                /* Change favorite color */
+                --hue-color: {{profile.colortheme}}; /*Purple 250 - Green 142 - Blue 230 - Pink 340*/
+
+                /* HSL color mode */
+                --first-color: hsl(var(--hue-color),69%,61%);
+                --first-color-second: hsl(var(--hue-color),69%,61%);
+                --first-color-alt: hsl(var(--hue-color),57%,53%);
+                --first-color-lighter: hsl(var(--hue-color),92%,85%);
+                --title-color: hsl(var(--hue-color),8%,15%);
+                --text-color: hsl(var(--hue-color),8%,45%);
+                --text-color-light: hsl(var(--hue-color),8%,65%);
+                --input-color: hsl(var(--hue-color),70%,96%);
+                --body-color: hsl(var(--hue-color),60%,99%);
+                --container-color: #fff; 
+                --scroll-bar-color: hsl(var(--hue-color),12%,90%);
+                --scroll-thumb-color: hsl(var(--hue-color),12%,80%);
+
+                /*========== Font and typography ==========*/
+                --body-font: 'Poppins',sans-serif;
+
+                /* .5rem = 8px, 1rem = 16px, 1.5rem = 24px ... */
+                --big-font-size: 2rem;
+                --h1-font-size: 1.5rem;
+                --h2-font-size: 1.25rem;
+                --h3-font-size: 1.125rem;
+                --normal-font-size: .938rem;
+                --small-font-size: .813rem;
+                --smaller-font-size: .75rem;
+
+                /*========== Font weight ==========*/
+                --font-medium: 500;
+                --font-semi-bold: 600;
+
+                /*========== Margenes Bottom ==========*/
+                /* .25rem = 4px, .5rem = 8px, .75rem = 12px ... */
+                --mb-0-25: .25rem;
+                --mb-0-5: .5rem;
+                --mb-0-75: .75rem;
+                --mb-1: 1rem;
+                --mb-1-5: 1.5rem;
+                --mb-2: 2rem;
+                --mb-2-5: 2.5rem;
+                --mb-3: 3rem;
+
+                /*========== z index ==========*/
+                --z-tooltip: 10;
+                --z-fixed: 100;
+                --z-modal: 1000;
+            }
+        </style>
+
+        <title>Anurag's Portfolio</title>
+    </head>
+    <body>
+        <!--==================== HEADER ====================-->
+        <header class="header" id="header">
+            <nav class="nav container">
+                <a href="#home" class="nav__logo">{{profile.name}}</a>
+
+                <div class="nav__menu" id="nav-menu">
+                    <ul class="nav__list grid">
+                        <li class="nav__item">
+                            <a href="#home" class="nav__link active-link">
+                                <i class='bx bx-home-alt nav__icon'></i> Home
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#about" class="nav__link">
+                                <i class='bx bx-user nav__icon'></i> About
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#skills" class="nav__link">
+                                <i class='bx bx-file nav__icon'></i> Skills
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#services" class="nav__link">
+                                <i class='bx bx-briefcase nav__icon'></i> Services
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#portfolio" class="nav__link">
+                                <i class='bx bx-landscape nav__icon'></i> Portfolio
+                            </a>
+                        </li>
+                        <li class="nav__item">
+                            <a href="#contact" class="nav__link">
+                                <i class='bx bx-send nav__icon'></i> Contact
+                            </a>
+                        </li>
+                    </ul>
+                    <i class="bx bx-x nav__close" id="nav-close"></i>
+                </div>
+                <div class="nav__btns">
+                    <!-- Theme change button -->
+                    <i class='bx bx-moon change-theme' id="theme-button"></i>
+                    <div class="nav__toggle" id="nav-toggle">
+                        <i class='bx bx-grid-alt'></i>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!--==================== MAIN ====================-->
+        <main class="main">
+            <!--==================== HOME ====================-->
+            <section class="home section" id="home">
+                <div class="home__container container grid">
+                    <div class="home__content grid">
+                        <div class="home__social">
+                            {% for topsocial in topsocials %}
+                                <a href="{{topsocial.link}}" target="_blank" class="home__social-icon">
+                                    <i class='bx {{topsocial.icon}}'></i>
+                                </a>
+                            {% endfor %}
+                        </div>
+
+                        <div class="home__img">
+                            <svg class="home__blob" viewBox="0 0 200 187" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <mask id="mask0" mask-type="alpha">
+                                    <path d="M190.312 36.4879C206.582 62.1187 201.309 102.826 182.328 134.186C163.346 165.547 
+                                    130.807 187.559 100.226 186.353C69.6454 185.297 41.0228 161.023 21.7403 129.362C2.45775 
+                                    97.8511 -7.48481 59.1033 6.67581 34.5279C20.9871 10.1032 59.7028 -0.149132 97.9666 
+                                    0.00163737C136.23 0.303176 174.193 10.857 190.312 36.4879Z"/>
+                                </mask>
+                                <g mask="url(#mask0)">
+                                    <path d="M190.312 36.4879C206.582 62.1187 201.309 102.826 182.328 134.186C163.346 
+                                    165.547 130.807 187.559 100.226 186.353C69.6454 185.297 41.0228 161.023 21.7403 
+                                    129.362C2.45775 97.8511 -7.48481 59.1033 6.67581 34.5279C20.9871 10.1032 59.7028 
+                                    -0.149132 97.9666 0.00163737C136.23 0.303176 174.193 10.857 190.312 36.4879Z"/>
+                                    <image class="home__blob-img" x='12' y='18' xlink:href="{{ profile.blobimg.url }}"/>
+                                </g>
+                            </svg>
+                        </div>
+
+                        <div class="home__data">
+                            <h1 class="home__title">Hi I'am {{profile.name}}</h1>
+                            <h3 class="home__subtitle">{{profile.job}}</h3>
+                            <p class="home__description">{{profile.home_desc}}</p>
+                            <a href="#contact" class="button button--flex">
+                                Contact Me <i class='bx bx-send nav__icon button__icon'></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="home__scroll">
+                        <a href="#about" class="home__scroll-button button--flex">
+                            <i class='bx bx-mouse home__scroll-mouse'></i>
+                            <span class="home__scroll-name">Scroll down</span>
+                            <i class='bx bx-chevron-down home__scroll-arrow'></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!--==================== ABOUT ====================-->
+            <section class="about section" id="about">
+                <h2 class="section__title">About Me</h2>
+                <span class="section__subtitle">My Introduction</span>
+                <div class="about__container container grid">
+                    <img src="{{profile.aboutimg.url}}" alt="" class="about__img">
+
+                    <div class="about__data">
+                        <p class="about__description">
+                            {{profile.aboutme}}
+                        </p>
+                        <div class="about__info">
+                            <div>
+                                <span class="about__info-title">{{profile.experience}}+</span>
+                                <span class="about__info-name">Years <br> experience</span>
+                            </div>
+                            <div>
+                                <span class="about__info-title">{{profile.projects}}+</span>
+                                <span class="about__info-name">Completed <br> project</span>
+                            </div>
+                            <div>
+                                <span class="about__info-title">{{profile.companies}}+</span>
+                                <span class="about__info-name">Companies <br> worked
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="about__buttons">
+                            <a download="" href="{{profile.cv.url}}" class="button button--flex">
+                                Download CV <i class='bx bx-download button__icon'></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!--==================== SKILLS ====================-->
+            <section class="skills section" id="skills">
+                <h2 class="section__title">Skills</h2>
+                <span class="section__subtitle">My Technical Level</span>
+                
+                <div class="skills__container container grid">
+                    {% for skill in skills %}
+                        <!--==================== SKILLS 1====================-->
+                        <div class="skills__content skills__close">
+                            <div class="skills__header">
+                                <i class='bx {{skill.icon}} skills__icon'></i>
+                                <div>
+                                    <h1 class="skills__title">{{skill.name}}</h1>
+                                    <span class="skills__subtitle">More than {{skill.time}} years</span>
+                                </div>
+                                <i class='bx bx-chevron-down skills__arrow'></i>
+                            </div>
+
+                            <div class="skills__list grid">
+                                {% for subskill in subskills %}
+                                    {% if subskill.parent.name == skill.name %}
+                                        <div class="skills__data">
+                                            <div class="skills__titles">
+                                                <h3 class="skills__name">{{subskill.name}}</h3>
+                                                <span class="skills__number">{{subskill.percentage}}%</span>
+                                            </div>
+                                            <div class="skills__bar">
+                                                <span class="skills__percentage p__{{subskill.percentage}} "></span>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+
+            <!--==================== QUALIFICATION ====================-->
+            <section class="qualification section">
+                <h2 class="section__title">Qualifications</h2>
+                <span class="section__subtitle">My Personal Journey</span>
+                
+                <div class="qualification__container container">
+                    <div class="qualification__tabs">
+                        <div class="qualification__button button--flex qualification__active" data-target="#education">
+                            <i class='bx bxs-graduation qualification__icon'></i>
+                            Education
+                        </div>
+                        <div class="qualification__button button--flex" data-target="#work">
+                            <i class='bx bx-briefcase-alt-2 qualification__icon'></i>
+                            Work
+                        </div>
+                    </div>
+                    <div class="qualification__sections">
+                        <!--==================== QUALIFICATION CONTENT 1 ====================-->
+                        <div class="qualification__content qualification__active" data-content id="education">
+                            {% for education in educations %}
+                            {% if not forloop.counter|divisibleby:"2" %}
+                                <!--==================== QUALIFICATION 1 ====================-->
+                                <div class="qualification__data">
+                                    <div>
+                                        <h3 class="qualification__title">{{education.stage}}</h3>
+                                        <span class="qualification__subtitle">{{education.institution}}</span>
+                                        <div class="qualification__calender">
+                                            <i class='bx bx-table'></i>
+                                            {{education.time_from}}-{{education.time_to}}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span class="qualification__rounder"></span>
+                                        <span class="qualification__line"></span>
+                                    </div>
+                                </div>
+                            {%else%}
+                                <!--==================== QUALIFICATION 2 ====================-->
+                                <div class="qualification__data">
+                                    <div></div>
+                                    <div>
+                                        <span class="qualification__rounder"></span>
+                                        <span class="qualification__line"></span>
+                                    </div>
+                                    <div>
+                                        <h3 class="qualification__title">{{education.stage}}</h3>
+                                        <span class="qualification__subtitle">{{education.institution}}</span>
+                                        <div class="qualification__calender">
+                                            <i class='bx bx-table'></i>
+                                            {{education.time_from}}-{{education.time_to}}
+                                        </div>
+                                    </div>
+                                </div>
+                                {%endif%}
+                            {% endfor %}
+                        </div>
+
+
+                        <!--==================== QUALIFICATION CONTENT 2 ====================-->
+                        <div class="qualification__content" data-content id="work">
+                            {% for work in works %}
+                            {% if not forloop.counter|divisibleby:"2" %}
+                                <!--==================== QUALIFICATION 1 ====================-->
+                                <div class="qualification__data">
+                                    <div>
+                                        <h3 class="qualification__title">{{work.position}}</h3>
+                                        <span class="qualification__subtitle">{{work.company}}</span>
+                                        <div class="qualification__calender">
+                                            <i class='bx bx-table'></i>
+                                            {{work.time_from}}-{{work.time_to}}
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <span class="qualification__rounder"></span>
+                                        <span class="qualification__line"></span>
+                                    </div>
+                                </div>
+                            {%else%}
+                                <!--==================== QUALIFICATION 2 ====================-->
+                                <div class="qualification__data">
+                                    <div></div>
+                                    <div>
+                                        <span class="qualification__rounder"></span>
+                                        <span class="qualification__line"></span>
+                                    </div>
+                                    <div>
+                                        <h3 class="qualification__title">{{work.position}}</h3>
+                                        <span class="qualification__subtitle">{{work.company}}</span>
+                                        <div class="qualification__calender">
+                                            <i class='bx bx-table'></i>
+                                            {{work.time_from}}-{{work.time_to}}
+                                        </div>
+                                    </div>
+                                </div>
+                            {%endif%}
+                            {% endfor %}
+                        </div>
+                </div>
+
+            </section>
+
+            <!--==================== SERVICES ====================-->
+            <section class="services section" id="services">
+                <h2 class="section__title">Services</h2>
+                <span class="section__subtitle">What i offer</span>
+                <div class="services__container container grid">
+                    <!--==================== SERVICES 1 ====================-->
+                {% for service in services %}
+                    <div class="services__content">
+                        <div>
+                            <i class='bx {{service.icon}} services__icon'></i>
+                            <h3 class="services__title">{{service.name}}<br>{{service.lastname}}</h3>
+                        </div>
+                        <span class="button button--flex button__small button__link services__button">
+                            View More
+                            <i class='bx bx-right-arrow-alt button__icon'></i>
+                        </span>
+
+                        <div class="services__modal">
+                            <div class="services__modal-content">
+                                <h4 class="services__modal-title">{{service.name}}<br>{{service.lastname}}</h4>
+                                <i class='bx bx-x services__modal-close'></i>
+
+                                <ul class="services__modal-services grid">
+                                    {% for item in servicedetails %}
+                                    {% if item.parent.name == service.name and item.parent.lastname == service.lastname%}
+                                        <li class="services__modal-service">
+                                            <i class='bx bx-check-circle services__modal-icon'></i>
+                                            <p>{{item.point}}</p>
+                                        </li>
+                                    {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+
+            </section>
+
+            <!--==================== PORTFOLIO ====================-->
+            <section class="portfolio section" id="portfolio">
+                <h2 class="section__title">Portfilo</h2>
+                <span class="section__subtitle">Most Recent Work</span>
+                
+                <div class="portfolio__container container swiper mySwiper">
+                    <div class="swiper-wrapper">
+                    {% for portfolio in portfolios %}
+                        <!--==================== PORTFOLIO 1 ====================--> 
+                        <div class="portfolio__content grid swiper-slide">
+                            <img src="{{portfolio.img.url}}" alt="" class="portfolio__img">
+
+                            <div class="portfolio__data">
+                                <h3 class="portfolio__title">{{portfolio.name}}</h3>
+                                <p class="portfolio__description">{{portfolio.desc}}</p>
+                                <a href="{{portfolio.demo}}" target="_blank" class="button button--flex button__small portfolio__button">
+                                    Demo
+                                    <i class='bx bx-right-arrow-alt button__icon'></i>
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    </div>
+                    <!-- Add Arrows -->
+                    <div class="swiper-button-next">
+                        <i class='bx bx-chevron-right swiper-portfolio-icon'></i>
+                    </div>
+                    <div class="swiper-button-prev">
+                        <i class='bx bx-chevron-left swiper-portfolio-icon' ></i>
+                    </div>
+                    
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination"></div>
+
+                </div>
+            </section>
+
+            <!--==================== PROJECT IN MIND ====================-->
+            <section class="project section">
+                <div class="project__bg">
+                    <div class="project__container container grid">
+                        <div class="project__data">
+                            <h2 class="project__title">You have a new Project</h2>
+                            <p class="project__description">Contact me now and get a {{profile.discount}}% discount on your new project.</p>
+                            <a href="#contact" class="button--flex button--white button">
+                                Contact Me
+                                <i class='bx bx-send project__icon button__icon'></i>
+                            </a>
+                        </div>
+                        <img src="{{profile.projectimg.url}}" alt="" class="project__img">
+                    </div>
+                </div>
+
+            </section>
+
+            <!--==================== TESTIMONIAL ====================-->
+            <section class="testimonial section">
+                <h2 class="section__title">Testimonial</h2>
+                <span class="section__subtitle">My Client's Saying</span>
+                
+                <div class="testimonial__container container swiper mySwiper">
+                    <div class="swiper-wrapper">
+                    {% for testimonial in testimonials %}
+                    <!--==================== TESTIMONIAL 1 ====================-->
+                        <div class="testimonial__content swiper-slide">
+                            <div class="testimonial__data">
+                                <div class="testimonial__header">
+                                    <img src="{{testimonial.img.url}}" alt="" class="testimonial__img">
+
+                                    <div>
+                                        <h3 class="testimonial__name">{{testimonial.name}}</h3>
+                                        <span class="testimonial__client">{{testimonial.position}}</span>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <i class='bx bx-star testimonial__icon-star'></i>
+                                    <i class='bx bx-star testimonial__icon-star'></i>
+                                    <i class='bx bx-star testimonial__icon-star'></i>
+                                    <i class='bx bx-star testimonial__icon-star'></i>
+                                    <i class='bx bx-star testimonial__icon-star'></i>
+                                </div>
+                            </div>
+                            <p class="testimonial__description">{{testimonial.saying}}</p>
+                        </div>
+                    {% endfor %}
+                    </div>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination swiper-pagination-testimonial"></div>
+                </div>
+            </section>
+
+            <!--==================== CONTACT ME ====================-->
+            <section class="contact section" id="contact">
+                <h2 class="section__title">Contact Me</h2>
+                <span class="section__subtitle">Get in Touch</span>
+
+                <div class="contact__container container grid">
+                    <div>
+                        <div class="contact__information">
+                            <i class='bx bx-phone contact__icon'></i>
+
+                            <div>
+                                <h3 class="contact__title">Call Me</h3>
+                                <span class="contact__subtitle">{{profile.mobile}}</span>
+                            </div>
+                        </div>
+                        <div class="contact__information">
+                            <i class='bx bx-envelope contact__icon'></i>
+
+                            <div>
+                                <h3 class="contact__title">Email</h3>
+                                <span class="contact__subtitle">{{profile.email}}</span>
+                            </div>
+                        </div>
+                        <div class="contact__information">
+                            <i class='bx bx-map contact__icon'></i>
+
+                            <div>
+                                <h3 class="contact__title">Location</h3>
+                                <span class="contact__subtitle">{{profile.location}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <form action="{% url 'send-mail' %}" method="POST" id="contact-form" class="contact__form grid">
+                        {%csrf_token%}
+                        <div class="contact__inputs grid">
+                            <div class="contact__content">
+                                <label for="" class="contact__label">Name</label>
+                                <input type="text" name="name" class="contact__input">
+                            </div>
+                            <div class="contact__content">
+                                <label for="" class="contact__label">Email</label>
+                                <input type="email" name="email" class="contact__input">
+                            </div>
+                        </div>
+                        <div class="contact__content">
+                            <label for="" class="contact__label">Project</label>
+                            <input type="text" name="project" class="contact__input">
+                        </div>
+                        <div class="contact__content">
+                            <label for="" class="contact__label">Message</label>
+                            <textarea name="message" id="" cols="0" rows="7" class="contact__input"></textarea>
+                        </div>
+                        <div>
+                            <a onclick="myFunction()" class="button button--flex">
+                                Send Message
+                                <i class='bx bx-send button__icon'></i>
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </main>
+
+        <!--==================== FOOTER ====================-->
+        <footer class="footer">
+            <div class="footer__bg">
+                <div class="footer__container container grid">
+                    <div>
+                        <h1 class="footer__title">{{profile.name}}</h1>
+                        <span class="footer__subtitle">{{profile.job}}</span>
+                    </div>
+
+                    <ul class="footer__links">
+                        <li>
+                            <a href="#services" class="footer__link">Services</a>
+                        </li>
+                        <li>
+                            <a href="#portfolio" class="footer__link">Portfolio</a>
+                        </li>
+                        <li>
+                            <a href="#contact" class="footer__link">Contact</a>
+                        </li>
+                    </ul>
+
+                    <div class="footer__socials">
+                        {% for bottomsocial in bottomsocials %}
+                                <a href="{{bottomsocial.link}}" target="_blank" class="footer__social">
+                                    <i class='bx {{bottomsocial.icon}}'></i>
+                                </a>
+                        {% endfor %}
+                    </div>
+
+                </div>
+                <p class="footer__copy">&#169; {{profile.name}}. All right Reserved</p>
+            </div>            
+        </footer>
+        
+        <!--==================== SCROLL TOP ====================-->
+        <a href="#home" class="scrollup" id="scroll-up">
+            <i class='bx bx-up-arrow-alt scrollup__icon' ></i>
+        </a>
+
+        <!--==================== SUBMIT FORM ====================-->
+        <script>
+            function myFunction() {
+                document.getElementById("contact-form").submit();
+            } 
+        </script>
+        <!--==================== SWIPER JS ====================-->
+        <script src="{% static 'assets/js/swiper-bundle.min.js' %}"></script>
+
+        <!--==================== MAIN JS ====================-->
+        <script src="{% static 'assets/js/main.js' %}"></script>
+    </body>
+</html>
